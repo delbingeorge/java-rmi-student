@@ -15,21 +15,10 @@ public class MyClient extends JFrame {
     private void createUI() {
         setLayout(new GridLayout(6, 1));
 
-        add(new JLabel("Student Name:"));
-        studentNameField = new JTextField(10);
-        add(studentNameField);
-
-        add(new JLabel("Marks in Subject 1:"));
-        subject1Field = new JTextField(10);
-        add(subject1Field);
-
-        add(new JLabel("Marks in Subject 2:"));
-        subject2Field = new JTextField(10);
-        add(subject2Field);
-
-        add(new JLabel("Marks in Subject 3:"));
-        subject3Field = new JTextField(10);
-        add(subject3Field);
+        addLabelAndTextField("Student Name:", studentNameField = new JTextField(4));
+        addLabelAndTextField("Marks in Subject 1:", subject1Field = new JTextField(4));
+        addLabelAndTextField("Marks in Subject 2:", subject2Field = new JTextField(4));
+        addLabelAndTextField("Marks in Subject 3:", subject3Field = new JTextField(4));
 
         JButton calculateButton = new JButton("Calculate");
         calculateButton.addActionListener(new ActionListener() {
@@ -49,6 +38,11 @@ public class MyClient extends JFrame {
         setVisible(true);
     }
 
+    private void addLabelAndTextField(String labelText, JTextField textField) {
+        add(new JLabel(labelText));
+        add(textField);
+    }
+
     private void calculate() {
         try {
             MarkCalc stub = (MarkCalc) Naming.lookup("rmi://localhost:5015/student");
@@ -62,7 +56,9 @@ public class MyClient extends JFrame {
             double averageMarks = stub.calculateAverage(subject1, subject2, subject3);
             String grade = stub.calculateGrade(averageMarks);
             stub.saveToDatabase(studentName, subject1, subject2, subject3, totalMarks, averageMarks, grade);
-            resultArea.setText("Student Name: " + studentName + "\n" + "Subject 1: " + subject1 + "\n"+ "Subject 2: " + subject2 + "\n"+ "Subject 3: " + subject3 + "\n"+ "Total Marks:" + totalMarks + "\n"+ "Average Marks: " + averageMarks + "\n"+ "Grade: " + grade + "\n");
+            resultArea.setText("Student Name: " + studentName + "\n" + "Subject 1: " + subject1 + "\n" + "Subject 2: "
+                    + subject2 + "\n" + "Subject 3: " + subject3 + "\n" + "Total Marks:" + totalMarks + "\n"
+                    + "Average Marks: " + averageMarks + "\n" + "Grade: " + grade + "\n");
 
         } catch (Exception e) {
             resultArea.setText(e.toString());
