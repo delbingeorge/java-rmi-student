@@ -7,8 +7,9 @@ import java.sql.PreparedStatement;
 class CalculationImplementation extends UnicastRemoteObject implements MarkCalc {
 
     Connection connection;
+
     CalculationImplementation() throws RemoteException {
-        
+
     }
 
     public double calculateTotal(double subject1, double subject2, double subject3) {
@@ -33,8 +34,10 @@ class CalculationImplementation extends UnicastRemoteObject implements MarkCalc 
         }
     }
 
-    public void saveToDatabase(String studentName, double subject1, double subject2, double subject3, double totalMarks, double averageMarks, String grade) throws RemoteException {
-        try (Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/student", "root", "password")) {
+    public void saveToDatabase(String studentName, double subject1, double subject2, double subject3, double totalMarks,
+            double averageMarks, String grade) throws RemoteException {
+        try (Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/student", "root",
+                "password")) {
             String query = "INSERT INTO student_reports (student_name, subject1, subject2, subject3,total_marks,average_marks,grade) VALUES (?, ?, ?, ?,?,?,?)";
             PreparedStatement preparedStatement = connection.prepareStatement(query);
             preparedStatement.setString(1, studentName);
