@@ -14,7 +14,7 @@ public class MyClient extends JFrame {
     }
 
     private void createUI() {
-        setLayout(new GridLayout(6, 1));
+        setLayout(new FlowLayout());
 
         addLabelAndTextField("Reg Number:", stdRegNumber = new JTextField(4));
         addLabelAndTextField("Student Name:", studentNameField = new JTextField(4));
