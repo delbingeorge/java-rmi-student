@@ -8,7 +8,10 @@ interface MarkCalc extends Remote {
 
     String calculateGrade(double averageMarks) throws RemoteException;
 
-    void saveToDatabase(String studentName, double subject1, double subject2, double subject3, double totalMarks,
+    void saveToDatabase(String studentName, double regNo, double subject1, double subject2, double subject3,
+            double totalMarks,
             double averageMarks, String grade) throws RemoteException;
+
+    String getStudentDetails(double registerNumber) throws RemoteException;
 
 }
